@@ -1,11 +1,10 @@
 {
-  "name": "films",
+  "name": "be-ct-upskilling-microservicios",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/index.js",
-    "tsc": "tsc",
+    "start": "node index.ts",
     "dev": "nodemon index.ts"
   },
   "keywords": [],
@@ -16,6 +15,7 @@
     "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
     "typescript": "^5.1.3"
   },
   "devDependencies": {
