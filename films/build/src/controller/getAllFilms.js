@@ -12,5 +12,5 @@ const Films = require('../data/index');
 let utils = require('../utils');
 module.exports = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let data = yield Films.list();
-    utils.response(res, 200, data);
+    utils.response(res, 200, data.data);
 });

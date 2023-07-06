@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const axios = require('axios');
-require('dotenv').config();
-module.exports = {
-    list: () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(process.env.DATABASE_URL);
-        return yield axios.get(`${process.env.DATABASE_URL}/planets`);
-    })
-};
+const { Router } = require("express");
+/* const DbControllers = require("../controller"); */
+const dataDb = require('../database/index');
+const DbRouter = Router();
+DbRouter.get('/characters', (_req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.status(200).json(yield dataDb.characters.getAll()); }));
+DbRouter.get('/planets', (_req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.status(200).json(yield dataDb.planets.getAll()); }));
+DbRouter.get('/films', (_req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.status(200).json(yield dataDb.films.getAll()); }));
+module.exports = DbRouter;

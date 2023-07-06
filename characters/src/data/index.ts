@@ -1,7 +1,9 @@
-const characters = require('./characters.json')
+const axios = require('axios')
+
+require('dotenv').config()
 
 module.exports = {
     list: async () => {
-        return characters
+        return await axios.get(`${process.env.DATABASE_URL}/characters`)
     }
 }
