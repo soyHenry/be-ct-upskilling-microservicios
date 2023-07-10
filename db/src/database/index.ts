@@ -12,15 +12,18 @@ module.exports = {
     /* characters */
     characters: {
         getAll: async () => await Characters.find().populate('homeworld', ['_id', 'name']).populate('films', ['_id', 'title']),
+        getById: async (id: String) => await Characters.findById(id).populate('homeworld').populate('films'),
     },
 
     /* planets */
     planets: {
-        getAll: async () => await Planets.find().populate('films', ['_id', 'title'])
+        getAll: async () => await Planets.find().populate('films', ['_id', 'title']),
+        getById: async (id: String) => await Planets.findById(id).populate('films')
     },
 
     /* films */
     films: {
-        getAll: async () => await Films.find().populate('characters', ['_id', 'name']).populate('planets', ['_id', 'name'])
+        getAll: async () => await Films.find().populate('characters', ['_id', 'name']).populate('planets', ['_id', 'name']),
+        getById: async (id: String) => await Films.findById(id).populate('characters').populate('planets'),
     }
 }

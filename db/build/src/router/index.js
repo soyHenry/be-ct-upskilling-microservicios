@@ -10,9 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const { Router } = require("express");
 /* const DbControllers = require("../controller"); */
-const dataDb = require('../database/index');
 const DbRouter = Router();
-DbRouter.get('/characters', (_req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.status(200).json(yield dataDb.characters.getAll()); }));
-DbRouter.get('/planets', (_req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.status(200).json(yield dataDb.planets.getAll()); }));
-DbRouter.get('/films', (_req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.status(200).json(yield dataDb.films.getAll()); }));
+const { validateModel } = require('../middlewares/index');
+const store = require('../database/index');
+DbRouter.get('/:model', validateModel, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { model } = req.params;
+    res.status(200).json(yield store[model].getAll());
+}));
+DbRouter.get('/:model/:id', validateModel, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { model, id } = req.params;
+    res.status(200).json(yield store[model].getById(id));
+}));
+/* DbRouter.use('/characters', require('./subRoutes/charactersRouter'))
+
+DbRouter.use('/films', require('./subRoutes/filmsRouter'))
+
+DbRouter.use('/planets', require('./subRoutes/planetsRouter')) */
 module.exports = DbRouter;

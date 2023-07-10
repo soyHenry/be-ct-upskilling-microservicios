@@ -13,7 +13,10 @@ starWarsDbServer.use('*', (_req: any, res: any) => {
 })
 
 starWarsDbServer.use((err: any, _req: any, res: any, _next: any) => {
-    res.status(500).send(err.message)
+    res.status(500).json({
+        error: true,
+        message: err.message
+    })
 })
 
 

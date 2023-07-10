@@ -12,7 +12,9 @@ const axios = require('axios');
 require('dotenv').config();
 module.exports = {
     list: () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log(process.env.DATABASE_URL);
         return yield axios.get(`${process.env.DATABASE_URL}/planets`);
+    }),
+    detail: (id) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield axios.get(`${process.env.DATABASE_URL}/planets/${id}`);
     })
 };

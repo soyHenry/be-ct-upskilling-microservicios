@@ -8,13 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const axios = require('axios');
-require('dotenv').config();
-module.exports = {
-    list: () => __awaiter(void 0, void 0, void 0, function* () {
-        return yield axios.get(`${process.env.DATABASE_URL}/films`);
-    }),
-    detail: (id) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield axios.get(`${process.env.DATABASE_URL}/films/${id}`);
-    })
-};
+const { Router: FilmsRouter } = require("express");
+let filmsRouter = FilmsRouter();
+let { films } = require('../../database/index');
+filmsRouter.get('/', (_req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.status(200).json(yield films.getAll()); }));
+filmsRouter.get('/detail/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { id } = req.params;
+    res.status(200).json(yield films.getById(id));
+}));
+module.exports = filmsRouter;

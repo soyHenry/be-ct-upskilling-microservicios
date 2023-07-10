@@ -18,13 +18,16 @@ module.exports = {
     /* characters */
     characters: {
         getAll: () => __awaiter(void 0, void 0, void 0, function* () { return yield Characters.find().populate('homeworld', ['_id', 'name']).populate('films', ['_id', 'title']); }),
+        getById: (id) => __awaiter(void 0, void 0, void 0, function* () { return yield Characters.findById(id).populate('homeworld').populate('films'); }),
     },
     /* planets */
     planets: {
-        getAll: () => __awaiter(void 0, void 0, void 0, function* () { return yield Planets.find().populate('films', ['_id', 'title']); })
+        getAll: () => __awaiter(void 0, void 0, void 0, function* () { return yield Planets.find().populate('films', ['_id', 'title']); }),
+        getById: (id) => __awaiter(void 0, void 0, void 0, function* () { return yield Planets.findById(id).populate('films'); })
     },
     /* films */
     films: {
-        getAll: () => __awaiter(void 0, void 0, void 0, function* () { return yield Films.find().populate('characters', ['_id', 'name']).populate('planets', ['_id', 'name']); })
+        getAll: () => __awaiter(void 0, void 0, void 0, function* () { return yield Films.find().populate('characters', ['_id', 'name']).populate('planets', ['_id', 'name']); }),
+        getById: (id) => __awaiter(void 0, void 0, void 0, function* () { return yield Films.findById(id).populate('characters').populate('planets'); }),
     }
 };

@@ -1,14 +1,23 @@
 const { Router } = require("express");
 /* const DbControllers = require("../controller"); */
-
-const dataDb = require('../database/index')
-
 const DbRouter = Router()
+const { validateModel } = require('../middlewares/index')
+const store = require('../database/index')
 
-DbRouter.get('/characters', async (_req: any, res: any) => res.status(200).json(await dataDb.characters.getAll()))
+DbRouter.get('/:model', validateModel, async (req: any, res: any) => {
+    let { model } = req.params;
+    res.status(200).json(await store[model].getAll())
+})
 
-DbRouter.get('/planets', async (_req: any, res: any) => res.status(200).json(await dataDb.planets.getAll()))
+DbRouter.get('/:model/:id', validateModel, async (req: any, res: any) => {
+    let { model, id } = req.params
+    res.status(200).json(await store[model].getById(id))
+})
 
-DbRouter.get('/films', async (_req: any, res: any) => res.status(200).json(await dataDb.films.getAll()))
+/* DbRouter.use('/characters', require('./subRoutes/charactersRouter'))
+
+DbRouter.use('/films', require('./subRoutes/filmsRouter'))
+
+DbRouter.use('/planets', require('./subRoutes/planetsRouter')) */
 
 module.exports = DbRouter

@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  gateway:
+    container_name: gateway
+    restart: always
+    build: ./gateway
+    ports:
+      - '8000:8000'
+
+  characters:
+    container_name: characters
+    restart: always
+    build: ./characters
+    environment:
+      - DATABASE_URL=http://database:8004
+    ports:
+      - ':8001'
+
+  films:
+    container_name: films
+    restart: always
+    build: ./films
+    environment:
+      - DATABASE_URL=http://database:8004
+    ports:
+      - ':8002'
+  
+  planets:
+    container_name: planets
+    restart: always
+    build: ./planets
+    environment:
+      - DATABASE_URL=http://database:8004
+    ports:
+      - ':8003'
+  
+  database:
+    container_name: database
+    restart: always
+    build: ./db
+    environment:
+      - MONGO_URL=mongodb+srv://lechugaxthz:lechu42831290.@wine-cellars.ntivurs.mongodb.net/star_wars
+    ports:
+      - ':8004'
+
+  

@@ -13,5 +13,8 @@ require('dotenv').config();
 module.exports = {
     list: () => __awaiter(void 0, void 0, void 0, function* () {
         return yield axios.get(`${process.env.DATABASE_URL}/characters`);
+    }),
+    detail: (id) => __awaiter(void 0, void 0, void 0, function* () {
+        return yield axios.get(`${process.env.DATABASE_URL}/characters/${id}`);
     })
 };

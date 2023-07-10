@@ -4,5 +4,5 @@ const charactersConstroller = require("../controller/index");
 const middleware = require('../middlewares');
 const charactersRouter = Router();
 charactersRouter.get('/', charactersConstroller.getAllCharacters);
-charactersRouter.post('/', middleware.characterValidation, charactersConstroller.createCharacter);
+charactersRouter.get('/:id', charactersConstroller.getDetailCharacter);
 module.exports = charactersRouter;
